@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { StyleSheet, View, Text, Image, FlatList } from 'react-native';
 import { Card } from 'react-native-paper';
 
 const Home = () => {
@@ -7,10 +7,10 @@ const Home = () => {
 		{ id: 1, name: 'Mukesh', position: 'Web Dev' },
 		{ id: 2, name: 'Suresh', position: 'Andriod Dev' },
 		{ id: 3, name: 'Ramesh', position: 'ML Expert' },
-		{ id: 4, name: 'Hitesh', position: 'Data Analyst' }
+		{ id: 4, name: 'Hitesh', position: 'cloud Expert' }
 	];
 
-	const renderData = data.map(({ name, id, position, ...props }) => (
+	const renderData = ({ name, id, position, ...props }) => (
 		<Card style={styles.myCard} key={id}>
 			<View style={styles.cardView}>
 				<Image
@@ -26,8 +26,12 @@ const Home = () => {
 				</View>
 			</View>
 		</Card>
-	));
-	return <View>{renderData}</View>;
+	);
+	return (
+		<View>
+			<FlatList data={data} renderItem={({ item }) => renderData(item)} />
+		</View>
+	);
 };
 
 const styles = StyleSheet.create({
