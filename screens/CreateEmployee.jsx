@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
-import { TextInput } from 'react-native-paper';
+import { StyleSheet, View, Text, Modal } from 'react-native';
+import { TextInput, Button } from 'react-native-paper';
 
 const CreateEmployee = () => {
 	const [ formValues, setFormValues ] = React.useState({ name: '', phoneNumber: '', email: '', salary: '' });
 	const [ picture, setPicture ] = React.useState('');
-	const [ modal, setModal ] = React.useState(false);
+	const [ modalVisible, setModalVisible ] = React.useState(false);
 	return (
 		<View style={styles.root}>
 			<TextInput
@@ -41,6 +41,31 @@ const CreateEmployee = () => {
 				theme={theme}
 				onChangeText={(text) => setFormValues({ ...formValues, salary: text })}
 			/>
+			<Button mode="contained" theme={theme} icon="upload" onPress={() => setModalVisible(true)}>
+				Upload Profile image
+			</Button>
+			<Modal
+				animationType="slide"
+				transparent={true}
+				visible={modalVisible}
+				onRequestClose={() => {
+					setModalVisible(false);
+				}}
+			>
+				<View style={styles.modalView}>
+					<View style={styles.modalButtonView}>
+						<Button mode="contained" icon="camera" theme={theme} onPress={() => setModalVisible(false)}>
+							Camera
+						</Button>
+						<Button mode="contained" icon="image" theme={theme} onPress={() => setModalVisible(false)}>
+							Gallary
+						</Button>
+					</View>
+					<Button theme={theme} onPress={() => setModalVisible(false)}>
+						Cancel
+					</Button>
+				</View>
+			</Modal>
 		</View>
 	);
 };
@@ -57,6 +82,16 @@ const styles = StyleSheet.create({
 	},
 	inputStyle: {
 		margin: 5
+	},
+	modalView: {
+		position: 'absolute',
+		bottom: 2,
+		width: '100%'
+	},
+	modalButtonView: {
+		flexDirection: 'row',
+		justifyContent: 'space-around',
+		padding: 10
 	}
 });
 
