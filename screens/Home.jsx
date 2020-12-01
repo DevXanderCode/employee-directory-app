@@ -7,11 +7,11 @@ const Home = () => {
 		{ id: 1, name: 'Mukesh', position: 'Web Dev' },
 		{ id: 2, name: 'Suresh', position: 'Andriod Dev' },
 		{ id: 3, name: 'Ramesh', position: 'ML Expert' },
-		{ id: 4, name: 'Hitesh', position: 'cloud Expert' }
+		{ id: 4, name: 'Hitesh', position: 'Cloud Expert' }
 	];
 
 	const renderData = ({ name, id, position, ...props }) => (
-		<Card style={styles.myCard} key={id}>
+		<Card style={styles.myCard}>
 			<View style={styles.cardView}>
 				<Image
 					source={{
@@ -29,7 +29,7 @@ const Home = () => {
 	);
 	return (
 		<View>
-			<FlatList data={data} renderItem={({ item }) => renderData(item)} />
+			<FlatList data={data} renderItem={({ item }) => renderData(item)} keyExtractor={(item) => `${item.id}`} />
 		</View>
 	);
 };
