@@ -29,6 +29,7 @@ const CreateEmployee = () => {
 				value={formValues.phoneNumber}
 				style={styles.inputStyle}
 				mode="outlined"
+				keyboardType="number-pad"
 				theme={theme}
 				onChangeText={(text) => setFormValues({ ...formValues, phoneNumber: text })}
 			/>
