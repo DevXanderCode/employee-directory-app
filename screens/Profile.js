@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Title } from 'react-native-paper';
+import { Title, Card } from 'react-native-paper';
+import { MaterialIcons } from '@expo/vector-icons';
 
 const Profile = () => {
 	return (
@@ -28,9 +29,14 @@ const Profile = () => {
 			</View>
 			<View style={{ alignItems: 'center' }}>
 				<Title>Nweke chinedu Alex</Title>
-				<Text style={{ fontSize: 18 }}>Developer</Text>
+				<Text style={styles.myText}>Developer</Text>
 			</View>
-			<Text>Hello from the profile component</Text>
+			<Card style={styles.myCard}>
+				<View style={styles.cardContent}>
+					<MaterialIcons name="email" size={32} color="#006aff" />
+					<Text style={styles.myText}>nwekealexchinedu@gmail.com</Text>
+				</View>
+			</Card>
 		</View>
 	);
 };
@@ -38,6 +44,15 @@ const Profile = () => {
 const styles = StyleSheet.create({
 	root: {
 		flex: 1
+	},
+	myCard: {
+		margin: 3
+	},
+	cardContent: {
+		flexDirection: 'row'
+	},
+	myText: {
+		fontSize: 18
 	}
 });
 export default Profile;
