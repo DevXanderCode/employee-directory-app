@@ -4,7 +4,9 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Title, Card, Button } from 'react-native-paper';
 import { MaterialIcons, Entypo } from '@expo/vector-icons';
 
-const Profile = () => {
+const Profile = (props) => {
+	const { item } = props.route.params;
+
 	const openDial = (tel) => {
 		Platform.OS === 'android' ? Linking.openURL(`tel:${tel}`) : Linking(`telprompt: ${tel}`);
 	};
@@ -19,8 +21,7 @@ const Profile = () => {
 			>
 				<Image
 					source={{
-						uri:
-							'https://images.unsplash.com/photo-1579503841516-e0bd7fca5faa?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NjN8fHBlcnNvbnxlbnwwfDJ8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
+						uri: `${item.picture}`
 					}}
 					style={{
 						width: 140,
@@ -30,30 +31,30 @@ const Profile = () => {
 				/>
 			</View>
 			<View style={{ alignItems: 'center', margin: 15 }}>
-				<Title>Nweke chinedu Alex</Title>
-				<Text style={{ fontSize: 18 }}>Developer</Text>
+				<Title>{item.name}</Title>
+				<Text style={{ fontSize: 18 }}>{item.position}</Text>
 			</View>
 			<Card
 				style={styles.myCard}
 				onPress={() => {
-					Linking.openURL('mailto:nwekealexchinedu@gmail.com');
+					Linking.openURL(`mailto:${item.email}`);
 				}}
 			>
 				<View style={styles.cardContent}>
 					<MaterialIcons name="email" size={32} color="#006aff" />
-					<Text style={styles.myText}>nwekealexchinedu@gmail.com</Text>
+					<Text style={styles.myText}>{item.email}</Text>
 				</View>
 			</Card>
 			<Card style={styles.myCard} onPress={() => openDial(1234567890)}>
 				<View style={styles.cardContent}>
 					<Entypo name="phone" size={32} color="#006aff" />
-					<Text style={styles.myText}>1234567890</Text>
+					<Text style={styles.myText}>{item.phone}</Text>
 				</View>
 			</Card>
 			<Card style={styles.myCard}>
 				<View style={styles.cardContent}>
 					<MaterialIcons name="attach-money" size={32} color="#006aff" />
-					<Text style={styles.myText}>180k USD</Text>
+					<Text style={styles.myText}>{item.salary} USD</Text>
 				</View>
 			</Card>
 			<View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 10 }}>
