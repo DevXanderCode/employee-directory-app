@@ -6,7 +6,7 @@ import { MaterialIcons, Entypo } from '@expo/vector-icons';
 
 const Profile = () => {
 	const openDial = (tel) => {
-		Platform.OS === 'android' ? Linking.openURL('tel:tel') : Linking('telprompt: tel');
+		Platform.OS === 'android' ? Linking.openURL(`tel:${tel}`) : Linking(`telprompt: ${tel}`);
 	};
 	return (
 		<View style={styles.root}>
@@ -44,8 +44,8 @@ const Profile = () => {
 					<Text style={styles.myText}>nwekealexchinedu@gmail.com</Text>
 				</View>
 			</Card>
-			<Card style={styles.myCard} onPress={() => {}}>
-				<View style={styles.cardContent} onPress={() => openDial(1234567890)}>
+			<Card style={styles.myCard} onPress={() => openDial(1234567890)}>
+				<View style={styles.cardContent}>
 					<Entypo name="phone" size={32} color="#006aff" />
 					<Text style={styles.myText}>1234567890</Text>
 				</View>
