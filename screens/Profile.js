@@ -1,10 +1,13 @@
 import * as React from 'react';
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { StyleSheet, View, Text, Image, Linking, Platform } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Title, Card, Button } from 'react-native-paper';
 import { MaterialIcons, Entypo } from '@expo/vector-icons';
 
 const Profile = () => {
+	const openDial = (tel) => {
+		Platform.OS === 'android' ? Linking.openURL('tel:tel') : Linking('telprompt: tel');
+	};
 	return (
 		<View style={styles.root}>
 			<LinearGradient colors={[ '#0033ff', '#6bc1ff' ]} style={{ height: '20%' }} />
@@ -31,14 +34,19 @@ const Profile = () => {
 				<Title>Nweke chinedu Alex</Title>
 				<Text style={{ fontSize: 18 }}>Developer</Text>
 			</View>
-			<Card style={styles.myCard}>
+			<Card
+				style={styles.myCard}
+				onPress={() => {
+					Linking.openURL('mailto:nwekealexchinedu@gmail.com');
+				}}
+			>
 				<View style={styles.cardContent}>
 					<MaterialIcons name="email" size={32} color="#006aff" />
 					<Text style={styles.myText}>nwekealexchinedu@gmail.com</Text>
 				</View>
 			</Card>
-			<Card style={styles.myCard}>
-				<View style={styles.cardContent}>
+			<Card style={styles.myCard} onPress={() => {}}>
+				<View style={styles.cardContent} onPress={() => openDial(1234567890)}>
 					<Entypo name="phone" size={32} color="#006aff" />
 					<Text style={styles.myText}>1234567890</Text>
 				</View>
@@ -46,7 +54,7 @@ const Profile = () => {
 			<Card style={styles.myCard}>
 				<View style={styles.cardContent}>
 					<MaterialIcons name="attach-money" size={32} color="#006aff" />
-					<Text style={styles.myText}>$180k</Text>
+					<Text style={styles.myText}>180k USD</Text>
 				</View>
 			</Card>
 			<View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 10 }}>
