@@ -7,15 +7,15 @@ const Home = ({ navigation, ...props }) => {
 		{ id: 1, name: 'Mukesh', position: 'Web Dev' },
 		{ id: 2, name: 'Suresh', position: 'Andriod Dev' },
 		{ id: 3, name: 'Ramesh', position: 'ML Expert' },
-		{ id: 4, name: 'Hitesh', position: 'Cloud Expert' },
-		{ id: 5, name: 'Mukesh', position: 'Web Dev' },
-		{ id: 6, name: 'Suresh', position: 'Andriod Dev' },
-		{ id: 7, name: 'Ramesh', position: 'ML Expert' },
-		{ id: 8, name: 'Hitesh', position: 'Cloud Expert' },
-		{ id: 9, name: 'Mukesh', position: 'Web Dev' },
-		{ id: 10, name: 'Suresh', position: 'Andriod Dev' },
-		{ id: 11, name: 'Ramesh', position: 'ML Expert' },
-		{ id: 12, name: 'Hitesh', position: 'Cloud Expert' }
+		{ id: 4, name: 'Hitesh', position: 'Cloud Expert' }
+		// { id: 5, name: 'Mukesh', position: 'Web Dev' },
+		// { id: 6, name: 'Suresh', position: 'Andriod Dev' },
+		// { id: 7, name: 'Ramesh', position: 'ML Expert' },
+		// { id: 8, name: 'Hitesh', position: 'Cloud Expert' },
+		// { id: 9, name: 'Mukesh', position: 'Web Dev' },
+		// { id: 10, name: 'Suresh', position: 'Andriod Dev' },
+		// { id: 11, name: 'Ramesh', position: 'ML Expert' },
+		// { id: 12, name: 'Hitesh', position: 'Cloud Expert' }
 	];
 
 	const renderData = ({ name, id, position, ...props }) => (
@@ -36,7 +36,7 @@ const Home = ({ navigation, ...props }) => {
 		</Card>
 	);
 	return (
-		<View>
+		<View style={{ flex: 1 }}>
 			<FlatList data={data} renderItem={({ item }) => renderData(item)} keyExtractor={(item) => `${item.id}`} />
 			<FAB
 				style={styles.fab}
