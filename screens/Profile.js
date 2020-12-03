@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Title } from 'react-native-paper';
 
 const Profile = () => {
 	return (
@@ -10,8 +11,7 @@ const Profile = () => {
 				style={{
 					// flexDirection: 'row',
 					alignItems: 'center',
-					position: 'relative',
-					bottom: 70
+					marginTop: -70
 				}}
 			>
 				<Image
@@ -25,6 +25,10 @@ const Profile = () => {
 						borderRadius: 70
 					}}
 				/>
+			</View>
+			<View style={{ alignItems: 'center' }}>
+				<Title>Nweke chinedu Alex</Title>
+				<Text style={{ fontSize: 18 }}>Developer</Text>
 			</View>
 			<Text>Hello from the profile component</Text>
 		</View>
