@@ -10,23 +10,25 @@ import Profile from './screens/Profile';
 
 const Stack = createStackNavigator();
 
+const myOptions = {
+	title: 'Home Screen',
+	headerTintColor: '#fff',
+	headerStyle: {
+		backgroundColor: '#006aff'
+	}
+};
+
 function App(props) {
 	return (
 		<View style={styles.container}>
 			<Stack.Navigator>
+				<Stack.Screen name="Home" component={Home} options={myOptions} />
+				<Stack.Screen name="Profile" component={Profile} options={{ ...myOptions, title: 'Profile' }} />
 				<Stack.Screen
-					name="Home"
-					component={Home}
-					options={{
-						title: 'Home Screen',
-						headerTintColor: '#fff',
-						headerStyle: {
-							backgroundColor: '#006aff'
-						}
-					}}
+					name="Create"
+					component={CreateEmployee}
+					options={{ ...myOptions, title: 'Create Employee' }}
 				/>
-				<Stack.Screen name="Profile" component={Profile} />
-				<Stack.Screen name="Create" component={CreateEmployee} />
 			</Stack.Navigator>
 			<StatusBar style="auto" />
 		</View>
