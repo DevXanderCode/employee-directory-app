@@ -13,7 +13,6 @@ const Profile = () => {
 			<LinearGradient colors={[ '#0033ff', '#6bc1ff' ]} style={{ height: '20%' }} />
 			<View
 				style={{
-					// flexDirection: 'row',
 					alignItems: 'center',
 					marginTop: -70
 				}}
