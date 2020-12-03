@@ -40,7 +40,7 @@ const Home = () => {
 			<FlatList data={data} renderItem={({ item }) => renderData(item)} keyExtractor={(item) => `${item.id}`} />
 			<FAB
 				style={styles.fab}
-				theme={{ colors: { accent: '#006aff' } }}
+				theme={{ colors: { accent: '#e0e0e0' } }}
 				icon="plus"
 				onPress={() => console.log('Pressed')}
 			/>

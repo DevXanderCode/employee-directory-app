@@ -41,8 +41,23 @@ const CreateEmployee = () => {
 				theme={theme}
 				onChangeText={(text) => setFormValues({ ...formValues, salary: text })}
 			/>
-			<Button mode="contained" theme={theme} icon="upload" onPress={() => setModalVisible(true)}>
-				Upload Profile image
+			<Button
+				mode="contained"
+				style={styles.inputStyle}
+				theme={theme}
+				icon="upload"
+				onPress={() => setModalVisible(true)}
+			>
+				Upload image
+			</Button>
+			<Button
+				mode="contained"
+				style={styles.inputStyle}
+				theme={theme}
+				icon="content-save"
+				onPress={() => console.log('Saving')}
+			>
+				Save
 			</Button>
 			<Modal
 				animationType="slide"
@@ -54,10 +69,20 @@ const CreateEmployee = () => {
 			>
 				<View style={styles.modalView}>
 					<View style={styles.modalButtonView}>
-						<Button mode="contained" icon="camera" theme={theme} onPress={() => setModalVisible(false)}>
+						<Button
+							mode="contained"
+							icon="camera"
+							theme={theme}
+							onPress={() => console.log('Camera Clicked')}
+						>
 							Camera
 						</Button>
-						<Button mode="contained" icon="image" theme={theme} onPress={() => setModalVisible(false)}>
+						<Button
+							mode="contained"
+							theme={theme}
+							icon="image"
+							onPress={() => console.log('Gallery clicked')}
+						>
 							Gallary
 						</Button>
 					</View>
@@ -86,7 +111,8 @@ const styles = StyleSheet.create({
 	modalView: {
 		position: 'absolute',
 		bottom: 2,
-		width: '100%'
+		width: '100%',
+		backgroundColor: '#fff'
 	},
 	modalButtonView: {
 		flexDirection: 'row',
