@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Title, Card } from 'react-native-paper';
+import { Title, Card, Button } from 'react-native-paper';
 import { MaterialIcons, Entypo } from '@expo/vector-icons';
 
 const Profile = () => {
@@ -27,7 +27,7 @@ const Profile = () => {
 					}}
 				/>
 			</View>
-			<View style={{ alignItems: 'center' }}>
+			<View style={{ alignItems: 'center', margin: 15 }}>
 				<Title>Nweke chinedu Alex</Title>
 				<Text style={{ fontSize: 18 }}>Developer</Text>
 			</View>
@@ -49,8 +49,32 @@ const Profile = () => {
 					<Text style={styles.myText}>$180k</Text>
 				</View>
 			</Card>
+			<View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 10 }}>
+				<Button
+					icon="account-edit"
+					theme={theme}
+					mode="contained"
+					onPress={() => console.log('edit button pressed')}
+				>
+					Edit
+				</Button>
+				<Button
+					icon="delete"
+					mode="contained"
+					theme={theme}
+					onPress={() => console.log('fire button presssed')}
+				>
+					Fire Employee
+				</Button>
+			</View>
 		</View>
 	);
+};
+
+const theme = {
+	colors: {
+		primary: '#006aff'
+	}
 };
 
 const styles = StyleSheet.create({
