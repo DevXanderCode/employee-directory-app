@@ -19,7 +19,7 @@ const Home = ({ navigation, ...props }) => {
 	];
 
 	const renderData = ({ name, id, position, ...props }) => (
-		<Card style={styles.myCard}>
+		<Card style={styles.myCard} onPress={() => navigation.navigate('Profile')}>
 			<View style={styles.cardView}>
 				<Image
 					source={{
