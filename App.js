@@ -14,7 +14,17 @@ function App(props) {
 	return (
 		<View style={styles.container}>
 			<Stack.Navigator>
-				<Stack.Screen name="Home" component={Home} />
+				<Stack.Screen
+					name="Home"
+					component={Home}
+					options={{
+						title: 'Home Screen',
+						headerTintColor: '#fff',
+						headerStyle: {
+							backgroundColor: '#006aff'
+						}
+					}}
+				/>
 				<Stack.Screen name="Profile" component={Profile} />
 				<Stack.Screen name="Create" component={CreateEmployee} />
 			</Stack.Navigator>
