@@ -1,11 +1,30 @@
 import * as React from 'react';
 import { StyleSheet, View, Text, Modal } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
+import * as ImagePicker from 'expo-image-picker';
+// import Constants from "expo-constants";
+import * as Permissions from 'expo-permissions';
 
 const CreateEmployee = () => {
 	const [ formValues, setFormValues ] = React.useState({ name: '', phoneNumber: '', email: '', salary: '' });
 	const [ picture, setPicture ] = React.useState('');
 	const [ modalVisible, setModalVisible ] = React.useState(false);
+
+	const pickForGallery = async () => {
+		const { granted } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+		if (granted) {
+			let data = await ImagePicker.launchImageLibraryAsync({
+				mediaTypes: ImagePicker.MediaTypeOptions.Images,
+				allowsEditing: true,
+				aspect: [ 1, 1 ],
+				quality: 0.5
+			});
+			console.log('Logging Data', data);
+		} else {
+			alert('Sorry, we need camera roll permissions to make this work!');
+		}
+	};
+
 	return (
 		<View style={styles.root}>
 			<TextInput
@@ -77,12 +96,7 @@ const CreateEmployee = () => {
 						>
 							Camera
 						</Button>
-						<Button
-							mode="contained"
-							theme={theme}
-							icon="image"
-							onPress={() => console.log('Gallery clicked')}
-						>
+						<Button mode="contained" theme={theme} icon="image" onPress={() => pickForGallery()}>
 							Gallary
 						</Button>
 					</View>

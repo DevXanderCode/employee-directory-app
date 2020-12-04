@@ -45,7 +45,7 @@ const Profile = (props) => {
 					<Text style={styles.myText}>{item.email}</Text>
 				</View>
 			</Card>
-			<Card style={styles.myCard} onPress={() => openDial(1234567890)}>
+			<Card style={styles.myCard} onPress={() => openDial(`${item.phone}`)}>
 				<View style={styles.cardContent}>
 					<Entypo name="phone" size={32} color="#006aff" />
 					<Text style={styles.myText}>{item.phone}</Text>
