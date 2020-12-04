@@ -10,7 +10,7 @@ const CreateEmployee = () => {
 	const [ picture, setPicture ] = React.useState('');
 	const [ modalVisible, setModalVisible ] = React.useState(false);
 
-	const pickForGallery = async () => {
+	const pickImageFromGallery = async () => {
 		const { granted } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
 		if (granted) {
 			let data = await ImagePicker.launchImageLibraryAsync({
@@ -20,6 +20,20 @@ const CreateEmployee = () => {
 				quality: 0.5
 			});
 			console.log('Logging Data', data);
+		} else {
+			alert('Sorry, we need camera roll permissions to make this work!');
+		}
+	};
+
+	const pickImageFromCamera = async () => {
+		const { granted } = await Permissions.askAsync(Permissions.CAMERA);
+		if (granted) {
+			let data = await ImagePicker.launchCameraAsync({
+				mediaTypes: ImagePicker.MediaTypeOptions.Images,
+				allowsEditing: true,
+				aspect: [ 1, 1 ],
+				quality: 0.5
+			});
 		} else {
 			alert('Sorry, we need camera roll permissions to make this work!');
 		}
@@ -88,15 +102,10 @@ const CreateEmployee = () => {
 			>
 				<View style={styles.modalView}>
 					<View style={styles.modalButtonView}>
-						<Button
-							mode="contained"
-							icon="camera"
-							theme={theme}
-							onPress={() => console.log('Camera Clicked')}
-						>
+						<Button mode="contained" icon="camera" theme={theme} onPress={() => pickImageFromCamera()}>
 							Camera
 						</Button>
-						<Button mode="contained" theme={theme} icon="image" onPress={() => pickForGallery()}>
+						<Button mode="contained" theme={theme} icon="image" onPress={() => pickImageFromGallery()}>
 							Gallary
 						</Button>
 					</View>
