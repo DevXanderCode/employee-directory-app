@@ -35,7 +35,7 @@ const CreateEmployee = () => {
           type: mime.getType(newImageUri),
           name: newImageUri.split('/').pop(),
         };
-        console.log('Logging new File', newFile);
+        // console.log('Logging new File', newFile);
         handleUpload(newFile);
       }
     } else {
@@ -53,10 +53,10 @@ const CreateEmployee = () => {
         aspect: [1, 1],
         quality: 0.5,
       });
-      console.log(
-        'logging data of the camera roll after changing the way i asked for permission ',
-        data
-      );
+      // console.log(
+      //   'logging data of the camera roll after changing the way i asked for permission ',
+      //   data
+      // );
       if (!data.cancelled) {
         const newImageUri = 'file:///' + data.uri.split('file:/').join('');
         let newFile = {
@@ -91,7 +91,8 @@ const CreateEmployee = () => {
     })
       .then(async (res) => {
         let data = await res.json();
-        console.log('logging data after upload', data);
+        // console.log('logging data after upload', data);
+        setPicture(data?.secure_url);
         return data.secure_url;
       })
       // .then((data) => console.log('logging data in then', data))
