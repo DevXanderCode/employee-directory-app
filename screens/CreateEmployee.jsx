@@ -93,6 +93,7 @@ const CreateEmployee = () => {
         let data = await res.json();
         // console.log('logging data after upload', data);
         setPicture(data?.secure_url);
+        setModalVisible(false);
         return data.secure_url;
       })
       // .then((data) => console.log('logging data in then', data))
@@ -137,8 +138,8 @@ const CreateEmployee = () => {
       <Button
         mode='contained'
         style={styles.inputStyle}
-        theme={theme}
-        icon='upload'
+        theme={picture ? { colors: { primary: 'green' } } : theme}
+        icon={picture ? 'check' : 'upload'}
         onPress={() => setModalVisible(true)}
       >
         Upload image
