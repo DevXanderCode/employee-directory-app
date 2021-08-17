@@ -1,53 +1,52 @@
-import * as React from "react";
-import { StyleSheet, View, Text, Modal } from "react-native";
-import { TextInput, Button } from "react-native-paper";
-import * as ImagePicker from "expo-image-picker";
+import * as React from 'react';
+import { StyleSheet, View, Text, Modal } from 'react-native';
+import { TextInput, Button } from 'react-native-paper';
+import * as ImagePicker from 'expo-image-picker';
+import mime from 'mime';
 // import Constants from "expo-constants";
-import * as Permissions from "expo-permissions";
+import * as Permissions from 'expo-permissions';
 
 const CreateEmployee = () => {
   const [formValues, setFormValues] = React.useState({
-    name: "",
-    phoneNumber: "",
-    email: "",
-    salary: "",
+    name: '',
+    phoneNumber: '',
+    email: '',
+    salary: '',
   });
-  const [picture, setPicture] = React.useState("");
+  const [picture, setPicture] = React.useState('');
   const [modalVisible, setModalVisible] = React.useState(false);
 
   const pickImageFromGallery = async () => {
     // const { granted } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
     const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
-    if (status === "granted") {
+    if (status === 'granted') {
       let data = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
         aspect: [1, 1],
         quality: 0.5,
       });
-      console.log(
-        "Logging Data after change the way i asked for permission",
-        data
-      );
+      console.log('Logging Data after change the way i asked for permission', data);
       if (!data.cancelled) {
-        let splitStr = data.uri.split(".");
+        let splitStr = data.uri.split('.');
+        const newImageUri = 'file:///' + data.uri.split('file:/').join('');
         let newFile = {
-          uri: data.uri,
-          type: `${splitStr[splitStr.length - 1]}`,
-          name: `${data.uri.split("ImagePicker/")[1]}`,
+          uri: newImageUri,
+          type: mime.getType(newImageUri),
+          name: newImageUri.split('/').pop(),
         };
-        console.log("Logging new File", newFile);
+        console.log('Logging new File', newFile);
         handleUpload(newFile);
       }
     } else {
-      alert("Sorry, we need camera roll permissions to make this work!");
+      alert('Sorry, we need camera roll permissions to make this work!');
     }
   };
 
   const pickImageFromCamera = async () => {
     // const { granted } = await Permissions.askAsync(Permissions.CAMERA);
     const { status } = await ImagePicker.requestCameraPermissionsAsync();
-    if (status === "granted") {
+    if (status === 'granted') {
       let data = await ImagePicker.launchCameraAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
@@ -55,105 +54,105 @@ const CreateEmployee = () => {
         quality: 0.5,
       });
       console.log(
-        "logging data of the camera roll after changing the way i asked for permission ",
+        'logging data of the camera roll after changing the way i asked for permission ',
         data
       );
       if (!data.cancelled) {
-        let splitStr = data.uri.split(".");
+        const newImageUri = 'file:///' + data.uri.split('file:/').join('');
         let newFile = {
-          uri: data.uri,
-          type: `${splitStr[splitStr.length - 1]}`,
-          name: `${data.uri.split("ImagePicker/")[1]}`,
+          uri: newImageUri,
+          type: mime.getType(newImageUri),
+          name: newImageUri.split('/').pop(),
         };
 
         handleUpload(newFile);
+        // handleUpload(data);
       }
     } else {
-      alert("Sorry, we need camera roll permissions to make this work!");
+      alert('Sorry, we need camera roll permissions to make this work!');
     }
   };
 
   const handleUpload = (image) => {
+    // let base64Img = `data:image/jpg;base64,${image.base64}`;
     const data = new FormData();
-    data.append("file", image);
-    data.append("upload_preset", "employeeApp");
-    data.append("cloud_name", "chinedu");
+    data.append('file', image);
+    // data.append('api_key', process.env.API_key);
+    data.append('upload_preset', 'employeeApp');
+    data.append('cloud_name', 'chinedu');
 
-    fetch("https://api.cloudinary.com/v1_1/chinedu/image/upload", {
-      method: "POST",
+    fetch('https://api.cloudinary.com/v1_1/chinedu/image/upload', {
+      method: 'POST',
       body: data,
       headers: {
-        Accept: "application/json",
-        "Content-Type": "multipart/form-data",
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data',
       },
     })
-      .then((res) => res.json())
-      .then((data) => console.log("logging data in then", data))
-      .catch((err) =>
-        console.log(
-          "I got this error when i tried to upload to cloudinary",
-          err
-        )
-      );
+      .then(async (res) => {
+        let data = await res.json();
+        console.log('logging data after upload', data);
+        return data.secure_url;
+      })
+      // .then((data) => console.log('logging data in then', data))
+      .catch((err) => console.log('I got this error when i tried to upload to cloudinary', err));
   };
 
   return (
     <View style={styles.root}>
       <TextInput
-        label="Name"
+        label='Name'
         value={formValues.name}
         style={styles.inputStyle}
-        mode="outlined"
+        mode='outlined'
         theme={theme}
         onChangeText={(text) => setFormValues({ ...formValues, name: text })}
       />
       <TextInput
-        label="Email"
+        label='Email'
         value={formValues.email}
         style={styles.inputStyle}
-        mode="outlined"
+        mode='outlined'
         theme={theme}
         onChangeText={(text) => setFormValues({ ...formValues, email: text })}
       />
       <TextInput
-        label="Phone Number"
+        label='Phone Number'
         value={formValues.phoneNumber}
         style={styles.inputStyle}
-        mode="outlined"
-        keyboardType="number-pad"
+        mode='outlined'
+        keyboardType='number-pad'
         theme={theme}
-        onChangeText={(text) =>
-          setFormValues({ ...formValues, phoneNumber: text })
-        }
+        onChangeText={(text) => setFormValues({ ...formValues, phoneNumber: text })}
       />
       <TextInput
-        label="Salary"
+        label='Salary'
         value={formValues.salary}
         style={styles.inputStyle}
-        mode="outlined"
+        mode='outlined'
         theme={theme}
         onChangeText={(text) => setFormValues({ ...formValues, salary: text })}
       />
       <Button
-        mode="contained"
+        mode='contained'
         style={styles.inputStyle}
         theme={theme}
-        icon="upload"
+        icon='upload'
         onPress={() => setModalVisible(true)}
       >
         Upload image
       </Button>
       <Button
-        mode="contained"
+        mode='contained'
         style={styles.inputStyle}
         theme={theme}
-        icon="content-save"
-        onPress={() => console.log("Saving")}
+        icon='content-save'
+        onPress={() => console.log('Saving')}
       >
         Save
       </Button>
       <Modal
-        animationType="slide"
+        animationType='slide'
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
@@ -163,17 +162,17 @@ const CreateEmployee = () => {
         <View style={styles.modalView}>
           <View style={styles.modalButtonView}>
             <Button
-              mode="contained"
-              icon="camera"
+              mode='contained'
+              icon='camera'
               theme={theme}
               onPress={() => pickImageFromCamera()}
             >
               Camera
             </Button>
             <Button
-              mode="contained"
+              mode='contained'
               theme={theme}
-              icon="image"
+              icon='image'
               onPress={() => pickImageFromGallery()}
             >
               Gallary
@@ -190,7 +189,7 @@ const CreateEmployee = () => {
 
 const theme = {
   colors: {
-    primary: "#006aff",
+    primary: '#006aff',
   },
 };
 
@@ -202,14 +201,14 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   modalView: {
-    position: "absolute",
+    position: 'absolute',
     bottom: 2,
-    width: "100%",
-    backgroundColor: "#fff",
+    width: '100%',
+    backgroundColor: '#fff',
   },
   modalButtonView: {
-    flexDirection: "row",
-    justifyContent: "space-around",
+    flexDirection: 'row',
+    justifyContent: 'space-around',
     padding: 10,
   },
 });

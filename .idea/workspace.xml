@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="47dd253c-73fc-43e6-9921-a7e712b8bff8" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/CreateEmployee.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/screens/CreateEmployee.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,5 +41,9 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="110" y="120" width="1146" height="488" key="AVDManager/0.0.1366.728@0.0.1366.728" timestamp="1611996884380" />
+    <state x="463" y="119" key="FileChooserDialogImpl" timestamp="1614021847613">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1614021847613" />
   </component>
 </project>
