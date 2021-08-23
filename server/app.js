@@ -102,10 +102,3 @@ app.post('/update', (req, res) => {
 app.listen(8080, () => {
   console.log('Server is listening on port 8080');
 });
-
-// "name": "chinedu",
-// "email": "test@test.com",
-// "phone": "023535",
-// "salary": "$180k",
-// "positon": "Full Stack web and mobile dev",
-// "picture": "Some url"
