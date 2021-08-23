@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image, FlatList } from 'react-native';
+import { StyleSheet, View, Text, Image, FlatList, Alert } from 'react-native';
 import { Card, FAB } from 'react-native-paper';
 
 const Home = ({ navigation, ...props }) => {
@@ -78,7 +78,10 @@ const Home = ({ navigation, ...props }) => {
         setEmployees(data);
         setIsLoading(false);
       })
-      .catch((err) => console.log('Got this error when i tried to get the list of employees', err));
+      .catch((err) => {
+        console.log('Got this error when i tried to get the list of employees', err);
+        Alert.alert('Error', err);
+      });
   };
 
   React.useEffect(() => {

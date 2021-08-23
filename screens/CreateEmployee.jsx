@@ -31,7 +31,10 @@ const CreateEmployee = ({ navigation }) => {
         Alert.alert(`${data.name} is Saved Successfully`);
         navigation.navigate('Home');
       })
-      .catch((err) => console.log('i got this error when i submitted the form', err));
+      .catch((err) => {
+        console.log('i got this error when i submitted the form', err);
+        Alert.alert('Something went wrong on form submittion, try again');
+      });
   };
 
   const pickImageFromGallery = async () => {
@@ -115,7 +118,10 @@ const CreateEmployee = ({ navigation }) => {
         return data.secure_url;
       })
       // .then((data) => console.log('logging data in then', data))
-      .catch((err) => console.log('I got this error when i tried to upload to cloudinary', err));
+      .catch((err) => {
+        console.log('I got this error when i tried to upload to cloudinary', err);
+        Alert.alert('Something went wrong while uploading image, try again');
+      });
   };
 
   return (
@@ -177,7 +183,8 @@ const CreateEmployee = ({ navigation }) => {
           theme={theme}
           icon='content-save'
           onPress={() => {
-            submitForm();
+            // submitForm();
+            console.log('Logging form values', formValues);
           }}
         >
           Save
