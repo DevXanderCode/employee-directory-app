@@ -14,6 +14,7 @@ const mongoUri =
 mongoose.connect(mongoUri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  useFindAndModify: false,
 });
 
 mongoose.connection.on('connected', () => {
@@ -57,8 +58,29 @@ app.post('/delete', (req, res) => {
   Employee.findByIdAndRemove(req.body.id)
     .then((data) => {
       console.log(data);
-      res.status(204);
+      // res.status(204);
       res.send(data);
+    })
+    .catch((err) => {
+      res.status(500);
+      res.send(err);
+      console.log(err);
+    });
+});
+
+app.post('/update', (req, res) => {
+  const { name, email, phone, picture, salary, position } = req.body;
+  Employee.findByIdAndUpdate(req.body.id, {
+    name,
+    email,
+    phone,
+    picture,
+    salary,
+    position,
+  })
+    .then((data) => {
+      console.log('successfully updated', data);
+      res.send('successfully updated');
     })
     .catch((err) => {
       res.status(500);
@@ -70,3 +92,10 @@ app.post('/delete', (req, res) => {
 app.listen(8080, () => {
   console.log('Server is listening on port 8080');
 });
+
+// "name": "chinedu",
+// "email": "test@test.com",
+// "phone": "023535",
+// "salary": "$180k",
+// "positon": "Full Stack web and mobile dev",
+// "picture": "Some url"
