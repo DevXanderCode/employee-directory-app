@@ -9,7 +9,7 @@ import * as Permissions from 'expo-permissions';
 const CreateEmployee = () => {
   const [formValues, setFormValues] = React.useState({
     name: '',
-    phoneNumber: '',
+    phone: '',
     email: '',
     salary: '',
     position: '',
@@ -17,7 +17,18 @@ const CreateEmployee = () => {
   const [picture, setPicture] = React.useState('');
   const [modalVisible, setModalVisible] = React.useState(false);
 
-  const submitForm = () => {};
+  const submitForm = () => {
+    fetch('http://10.0.2.2:8080/send-data', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ ...formValues, picture }),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log('Logging the submit res', data))
+      .catch((err) => console.log('i got this error when i submitted the form', err));
+  };
 
   const pickImageFromGallery = async () => {
     // const { granted } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
@@ -123,12 +134,12 @@ const CreateEmployee = () => {
       />
       <TextInput
         label='Phone Number'
-        value={formValues.phoneNumber}
+        value={formValues.phone}
         style={styles.inputStyle}
         mode='outlined'
         keyboardType='number-pad'
         theme={theme}
-        onChangeText={(text) => setFormValues({ ...formValues, phoneNumber: text })}
+        onChangeText={(text) => setFormValues({ ...formValues, phone: text })}
       />
       <TextInput
         label='Salary'
@@ -153,7 +164,7 @@ const CreateEmployee = () => {
         icon={picture ? 'check' : 'upload'}
         onPress={() => setModalVisible(true)}
       >
-        Upload image
+        {picture ? 'Image Uploaded' : 'Upload image'}
       </Button>
       <Button
         mode='contained'

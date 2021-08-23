@@ -54,7 +54,7 @@ app.post('/send-data', (req, res) => {
     .then((data) => {
       console.log(data);
       res.status(201);
-      res.send('successful');
+      res.send(data);
     })
     .catch((err) => {
       res.status(500);
