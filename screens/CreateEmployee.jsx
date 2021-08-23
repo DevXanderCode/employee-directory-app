@@ -60,7 +60,25 @@ const CreateEmployee = ({ navigation, route }) => {
       });
   };
 
-  const updateDetails = () => {};
+  const updateDetails = () => {
+    fetch('http://10.0.2.2:8080/update', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ ...formValues, picture, id: route?.params?._id }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log('Logging the submit res', data);
+        Alert.alert(`${data.name} is Updated Successfully`);
+        navigation.navigate('Home');
+      })
+      .catch((err) => {
+        console.log('i got this error when i submitted the form', err);
+        Alert.alert('Something went wrong while updating employee,please try again');
+      });
+  };
 
   const pickImageFromGallery = async () => {
     // const { granted } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
