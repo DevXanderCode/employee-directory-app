@@ -1,15 +1,13 @@
-const express = require('express');
-const app = express();
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
+const express = require('express'),
+  app = express(),
+  mongoose = require('mongoose');
 require('./Employee');
 
 app.use(express.json());
 
-const Employee = mongoose.model('employee');
-
-const mongoUri =
-  'mongodb+srv://admin:0123456789@cluster0.mutb5.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+const Employee = mongoose.model('employee'),
+  mongoUri =
+    'mongodb+srv://admin:0123456789@cluster0.mutb5.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 
 mongoose.connect(mongoUri, {
   useNewUrlParser: true,
