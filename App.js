@@ -12,9 +12,10 @@ import Home from './screens/Home';
 import CreateEmployee from './screens/CreateEmployee';
 import Profile from './screens/Profile';
 // reducer
-import { reducer } from './reducers/reducer';
+import { reducer, initialState } from './reducers/reducer';
 
-const store = createStore(reducer);
+// const store = createStore(reducer);
+const myContext = React.createContext();
 
 const Stack = createStackNavigator();
 
@@ -48,12 +49,15 @@ function App(props) {
 }
 
 export default () => {
+  const [state, dispatch] = React.useReducer(reducer, initialState);
   return (
-    <Provider store={store}>
+    // <Provider store={store}>
+    <myContext.Provider value={{ state, dispatch }}>
       <NavigationContainer>
         <App />
       </NavigationContainer>
-    </Provider>
+    </myContext.Provider>
+    // </Provider>
   );
 };
 

@@ -1,9 +1,9 @@
-const initialState = {
+export const initialState = {
   employees: [],
   isLoading: true,
 };
 
-export const reducer = (state = initialState, action) => {
+export const reducer = (state, action) => {
   switch (action.type) {
     case 'ADD_EMPLOYEE':
       return {
