@@ -6,15 +6,38 @@ import mime from 'mime';
 // import Constants from "expo-constants";
 import * as Permissions from 'expo-permissions';
 
-const CreateEmployee = ({ navigation }) => {
+const CreateEmployee = ({ navigation, route }) => {
+  if (route?.params) {
+    console.log('edit mode for: ', route?.params);
+  }
+  const getDetails = (type) => {
+    if (route.params) {
+      const { _id, name, email, phone, salary, position, picture } = route.params;
+      switch (type) {
+        case 'name':
+          return name;
+        case 'email':
+          return email;
+        case 'phone':
+          return phone;
+        case 'salary':
+          return salary;
+        case 'position':
+          return position;
+        case 'picture':
+          return picture;
+      }
+    }
+    return '';
+  };
   const [formValues, setFormValues] = React.useState({
-    name: '',
-    phone: '',
-    email: '',
-    salary: '',
-    position: '',
+    name: getDetails('name'),
+    phone: getDetails('phone'),
+    email: getDetails('email'),
+    salary: getDetails('salary'),
+    position: getDetails('position'),
   });
-  const [picture, setPicture] = React.useState('');
+  const [picture, setPicture] = React.useState(getDetails('picture'));
   const [modalVisible, setModalVisible] = React.useState(false);
 
   const submitForm = () => {

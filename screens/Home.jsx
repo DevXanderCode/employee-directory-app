@@ -74,7 +74,7 @@ const Home = ({ navigation, ...props }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log('employee list', data);
+        // console.log('employee list', data);
         setEmployees(data);
         setIsLoading(false);
       })
