@@ -43,10 +43,25 @@ app.post('/send-data', (req, res) => {
     .save()
     .then((data) => {
       console.log(data);
+      res.status(201);
       res.send('successful');
-      // res.sendStatus(201);
     })
     .catch((err) => {
+      res.status(500);
+      res.send(err);
+      console.log(err);
+    });
+});
+
+app.post('/delete', (req, res) => {
+  Employee.findByIdAndRemove(req.body.id)
+    .then((data) => {
+      console.log(data);
+      res.status(204);
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500);
       res.send(err);
       console.log(err);
     });
