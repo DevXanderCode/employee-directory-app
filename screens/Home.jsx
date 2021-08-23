@@ -1,10 +1,11 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { StyleSheet, View, Text, Image, FlatList, Alert } from 'react-native';
 import { Card, FAB } from 'react-native-paper';
 
 const Home = ({ navigation, ...props }) => {
-  const [employees, setEmployees] = React.useState([]);
-  const [isLoading, setIsLoading] = React.useState(true);
+  // const [employees, setEmployees] = React.useState([]);
+  // const [isLoading, setIsLoading] = React.useState(true);
   //   const data = [
   //     {
   //       _id: 1,
@@ -67,6 +68,10 @@ const Home = ({ navigation, ...props }) => {
   //         'https://images.unsplash.com/photo-1584307833174-a3bbb76ab367?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mzl8fHBlcnNvbnxlbnwwfDJ8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
   //     },
   //   ];
+  const dispatch = useDispatch();
+  const { employees, isLoading } = useSelector((state) => {
+    return state;
+  });
 
   const fetchEmployees = () => {
     fetch('http://10.0.2.2:8080', {
@@ -75,8 +80,10 @@ const Home = ({ navigation, ...props }) => {
       .then((res) => res.json())
       .then((data) => {
         // console.log('employee list', data);
-        setEmployees(data);
-        setIsLoading(false);
+        // setEmployees(data);
+        // setIsLoading(false);
+        dispatch({ type: 'ADD_EMPLOYEE', payload: data });
+        dispatch({ type: 'SET_LOADING', payload: false });
       })
       .catch((err) => {
         console.log('Got this error when i tried to get the list of employees', err);

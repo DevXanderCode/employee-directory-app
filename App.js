@@ -14,7 +14,7 @@ import Profile from './screens/Profile';
 // reducer
 import { reducer } from './reducers/reducer';
 
-const store = createStore();
+const store = createStore(reducer);
 
 const Stack = createStackNavigator();
 
@@ -49,9 +49,11 @@ function App(props) {
 
 export default () => {
   return (
-    <NavigationContainer>
-      <App />
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <App />
+      </NavigationContainer>
+    </Provider>
   );
 };
 

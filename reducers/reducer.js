@@ -1,8 +1,21 @@
 const initialState = {
-  data: [],
+  employees: [],
   isLoading: true,
 };
 
 export const reducer = (state = initialState, action) => {
-  return state;
+  switch (action.type) {
+    case 'ADD_EMPLOYEE':
+      return {
+        ...state,
+        data: action?.payload,
+      };
+    case 'SET_LOADING':
+      return {
+        ...state,
+        isLoading: action?.payload,
+      };
+    default:
+      return state;
+  }
 };
