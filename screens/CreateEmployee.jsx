@@ -60,6 +60,8 @@ const CreateEmployee = ({ navigation, route }) => {
       });
   };
 
+  const updateDetails = () => {};
+
   const pickImageFromGallery = async () => {
     // const { granted } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
     const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
@@ -200,18 +202,32 @@ const CreateEmployee = ({ navigation, route }) => {
         >
           {picture ? 'Image Uploaded' : 'Upload image'}
         </Button>
-        <Button
-          mode='contained'
-          style={styles.inputStyle}
-          theme={theme}
-          icon='content-save'
-          onPress={() => {
-            submitForm();
-            // console.log('Logging form values', formValues);
-          }}
-        >
-          Save
-        </Button>
+        {route.params ? (
+          <Button
+            mode='contained'
+            style={styles.inputStyle}
+            theme={{ colors: { primary: 'purple' } }}
+            icon='content-save'
+            onPress={() => {
+              updateDetails();
+            }}
+          >
+            Update Details
+          </Button>
+        ) : (
+          <Button
+            mode='contained'
+            style={styles.inputStyle}
+            theme={theme}
+            icon='content-save'
+            onPress={() => {
+              submitForm();
+              // console.log('Logging form values', formValues);
+            }}
+          >
+            Save
+          </Button>
+        )}
         <Modal
           animationType='slide'
           transparent={true}
