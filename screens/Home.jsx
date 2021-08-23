@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image, FlatList, ActivityIndicator } from 'react-native';
+import { StyleSheet, View, Text, Image, FlatList } from 'react-native';
 import { Card, FAB } from 'react-native-paper';
 
 const Home = ({ navigation, ...props }) => {
@@ -68,7 +68,7 @@ const Home = ({ navigation, ...props }) => {
   //     },
   //   ];
 
-  React.useEffect(() => {
+  const fetchEmployees = () => {
     fetch('http://10.0.2.2:8080', {
       method: 'get',
     })
@@ -79,6 +79,10 @@ const Home = ({ navigation, ...props }) => {
         setIsLoading(false);
       })
       .catch((err) => console.log('Got this error when i tried to get the list of employees', err));
+  };
+
+  React.useEffect(() => {
+    fetchEmployees();
   }, []);
 
   const renderData = (item) => (
@@ -99,15 +103,14 @@ const Home = ({ navigation, ...props }) => {
   );
   return (
     <View style={{ flex: 1 }}>
-      {isLoading ? (
-        <ActivityIndicator size='large' color='#006aff' />
-      ) : (
-        <FlatList
-          data={employees}
-          renderItem={({ item }) => renderData(item)}
-          keyExtractor={(item) => `${item._id}`}
-        />
-      )}
+      <FlatList
+        data={employees}
+        renderItem={({ item }) => renderData(item)}
+        keyExtractor={(item) => `${item._id}`}
+        onRefresh={fetchEmployees}
+        refreshing={isLoading}
+      />
+
       <FAB
         style={styles.fab}
         theme={{ colors: { accent: '#006aff' } }}
