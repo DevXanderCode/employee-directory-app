@@ -39,6 +39,7 @@ const CreateEmployee = ({ navigation, route }) => {
   });
   const [picture, setPicture] = React.useState(getDetails('picture'));
   const [modalVisible, setModalVisible] = React.useState(false);
+  const [enableShift, setEnableShift] = React.useState(false);
 
   const submitForm = () => {
     fetch('http://10.0.2.2:8080/send-data', {
@@ -168,12 +169,13 @@ const CreateEmployee = ({ navigation, route }) => {
   };
 
   return (
-    <View style={styles.root}>
-      <KeyboardAvoidingView>
+    <KeyboardAvoidingView behavior='position' style={styles.root} enabled={enableShift}>
+      <View>
         <TextInput
           label='Name'
           value={formValues.name}
           style={styles.inputStyle}
+          onFocus={() => setEnableShift(false)}
           mode='outlined'
           theme={theme}
           onChangeText={(text) => setFormValues({ ...formValues, name: text })}
@@ -182,6 +184,7 @@ const CreateEmployee = ({ navigation, route }) => {
           label='Email'
           value={formValues.email}
           style={styles.inputStyle}
+          onFocus={() => setEnableShift(false)}
           mode='outlined'
           theme={theme}
           onChangeText={(text) => setFormValues({ ...formValues, email: text })}
@@ -190,6 +193,7 @@ const CreateEmployee = ({ navigation, route }) => {
           label='Phone Number'
           value={formValues.phone}
           style={styles.inputStyle}
+          onFocus={() => setEnableShift(false)}
           mode='outlined'
           keyboardType='number-pad'
           theme={theme}
@@ -199,6 +203,7 @@ const CreateEmployee = ({ navigation, route }) => {
           label='Salary'
           value={formValues.salary}
           style={styles.inputStyle}
+          onFocus={() => setEnableShift(true)}
           mode='outlined'
           theme={theme}
           onChangeText={(text) => setFormValues({ ...formValues, salary: text })}
@@ -207,6 +212,7 @@ const CreateEmployee = ({ navigation, route }) => {
           label='Position'
           value={formValues.position}
           style={styles.inputStyle}
+          onFocus={() => setEnableShift(true)}
           mode='outlined'
           theme={theme}
           onChangeText={(text) => setFormValues({ ...formValues, position: text })}
@@ -278,8 +284,8 @@ const CreateEmployee = ({ navigation, route }) => {
             </Button>
           </View>
         </Modal>
-      </KeyboardAvoidingView>
-    </View>
+      </View>
+    </KeyboardAvoidingView>
   );
 };
 
