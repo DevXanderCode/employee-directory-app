@@ -26,7 +26,16 @@ mongoose.connection.on('error', (err) => {
 });
 
 app.get('/', (req, res) => {
-  res.send('Welcome to node js');
+  Employee.find({})
+    .then((data) => {
+      res.status(200);
+      res.send(data);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500);
+      res.send(err);
+    });
 });
 
 app.post('/send-data', (req, res) => {
@@ -80,7 +89,8 @@ app.post('/update', (req, res) => {
   })
     .then((data) => {
       console.log('successfully updated', data);
-      res.send('successfully updated');
+      // res.send('successfully updated');
+      res.send(data);
     })
     .catch((err) => {
       res.status(500);
