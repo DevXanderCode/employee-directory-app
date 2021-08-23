@@ -1,9 +1,10 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image, FlatList } from 'react-native';
+import { StyleSheet, View, Text, Image, FlatList, ActivityIndicator } from 'react-native';
 import { Card, FAB } from 'react-native-paper';
 
 const Home = ({ navigation, ...props }) => {
   const [employees, setEmployees] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(true);
   //   const data = [
   //     {
   //       _id: 1,
@@ -75,6 +76,7 @@ const Home = ({ navigation, ...props }) => {
       .then((data) => {
         console.log('employee list', data);
         setEmployees(data);
+        setIsLoading(false);
       })
       .catch((err) => console.log('Got this error when i tried to get the list of employees', err));
   }, []);
@@ -97,11 +99,15 @@ const Home = ({ navigation, ...props }) => {
   );
   return (
     <View style={{ flex: 1 }}>
-      <FlatList
-        data={employees}
-        renderItem={({ item }) => renderData(item)}
-        keyExtractor={(item) => `${item._id}`}
-      />
+      {isLoading ? (
+        <ActivityIndicator size='large' color='#006aff' />
+      ) : (
+        <FlatList
+          data={employees}
+          renderItem={({ item }) => renderData(item)}
+          keyExtractor={(item) => `${item._id}`}
+        />
+      )}
       <FAB
         style={styles.fab}
         theme={{ colors: { accent: '#006aff' } }}
