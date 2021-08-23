@@ -8,7 +8,7 @@ export const reducer = (state = initialState, action) => {
     case 'ADD_EMPLOYEE':
       return {
         ...state,
-        data: action?.payload,
+        employees: action?.payload,
       };
     case 'SET_LOADING':
       return {
