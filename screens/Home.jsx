@@ -80,7 +80,7 @@ const Home = ({ navigation, ...props }) => {
       })
       .catch((err) => {
         console.log('Got this error when i tried to get the list of employees', err);
-        Alert.alert('Error', err);
+        Alert.alert('Something went wrong, please try again');
       });
   };
 
@@ -93,7 +93,10 @@ const Home = ({ navigation, ...props }) => {
       <View style={styles.cardView}>
         <Image
           source={{
-            uri: `${item.picture}`,
+            uri: `${
+              item.picture ||
+              'https://images.unsplash.com/photo-1584307833174-a3bbb76ab367?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mzl8fHBlcnNvbnxlbnwwfDJ8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
+            }`,
           }}
           style={{ width: 60, height: 60, borderRadius: 30 }}
         />

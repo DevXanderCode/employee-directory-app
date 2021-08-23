@@ -183,8 +183,8 @@ const CreateEmployee = ({ navigation }) => {
           theme={theme}
           icon='content-save'
           onPress={() => {
-            // submitForm();
-            console.log('Logging form values', formValues);
+            submitForm();
+            // console.log('Logging form values', formValues);
           }}
         >
           Save
