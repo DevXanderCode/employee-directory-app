@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { StyleSheet, View, Text, Modal } from 'react-native';
+import { StyleSheet, View, Text, Modal, Alert, KeyboardAvoidingView } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker';
 import mime from 'mime';
 // import Constants from "expo-constants";
 import * as Permissions from 'expo-permissions';
 
-const CreateEmployee = () => {
+const CreateEmployee = ({ navigation }) => {
   const [formValues, setFormValues] = React.useState({
     name: '',
     phone: '',
@@ -26,7 +26,11 @@ const CreateEmployee = () => {
       body: JSON.stringify({ ...formValues, picture }),
     })
       .then((res) => res.json())
-      .then((data) => console.log('Logging the submit res', data))
+      .then((data) => {
+        console.log('Logging the submit res', data);
+        Alert.alert(`${data.name} is Saved Successfully`);
+        navigation.navigate('Home');
+      })
       .catch((err) => console.log('i got this error when i submitted the form', err));
   };
 
@@ -116,99 +120,101 @@ const CreateEmployee = () => {
 
   return (
     <View style={styles.root}>
-      <TextInput
-        label='Name'
-        value={formValues.name}
-        style={styles.inputStyle}
-        mode='outlined'
-        theme={theme}
-        onChangeText={(text) => setFormValues({ ...formValues, name: text })}
-      />
-      <TextInput
-        label='Email'
-        value={formValues.email}
-        style={styles.inputStyle}
-        mode='outlined'
-        theme={theme}
-        onChangeText={(text) => setFormValues({ ...formValues, email: text })}
-      />
-      <TextInput
-        label='Phone Number'
-        value={formValues.phone}
-        style={styles.inputStyle}
-        mode='outlined'
-        keyboardType='number-pad'
-        theme={theme}
-        onChangeText={(text) => setFormValues({ ...formValues, phone: text })}
-      />
-      <TextInput
-        label='Salary'
-        value={formValues.salary}
-        style={styles.inputStyle}
-        mode='outlined'
-        theme={theme}
-        onChangeText={(text) => setFormValues({ ...formValues, salary: text })}
-      />
-      <TextInput
-        label='Position'
-        value={formValues.position}
-        style={styles.inputStyle}
-        mode='outlined'
-        theme={theme}
-        onChangeText={(text) => setFormValues({ ...formValues, position: text })}
-      />
-      <Button
-        mode='contained'
-        style={styles.inputStyle}
-        theme={picture ? { colors: { primary: 'green' } } : theme}
-        icon={picture ? 'check' : 'upload'}
-        onPress={() => setModalVisible(true)}
-      >
-        {picture ? 'Image Uploaded' : 'Upload image'}
-      </Button>
-      <Button
-        mode='contained'
-        style={styles.inputStyle}
-        theme={theme}
-        icon='content-save'
-        onPress={() => {
-          submitForm();
-        }}
-      >
-        Save
-      </Button>
-      <Modal
-        animationType='slide'
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(false);
-        }}
-      >
-        <View style={styles.modalView}>
-          <View style={styles.modalButtonView}>
-            <Button
-              mode='contained'
-              icon='camera'
-              theme={theme}
-              onPress={() => pickImageFromCamera()}
-            >
-              Camera
-            </Button>
-            <Button
-              mode='contained'
-              theme={theme}
-              icon='image'
-              onPress={() => pickImageFromGallery()}
-            >
-              Gallary
+      <KeyboardAvoidingView>
+        <TextInput
+          label='Name'
+          value={formValues.name}
+          style={styles.inputStyle}
+          mode='outlined'
+          theme={theme}
+          onChangeText={(text) => setFormValues({ ...formValues, name: text })}
+        />
+        <TextInput
+          label='Email'
+          value={formValues.email}
+          style={styles.inputStyle}
+          mode='outlined'
+          theme={theme}
+          onChangeText={(text) => setFormValues({ ...formValues, email: text })}
+        />
+        <TextInput
+          label='Phone Number'
+          value={formValues.phone}
+          style={styles.inputStyle}
+          mode='outlined'
+          keyboardType='number-pad'
+          theme={theme}
+          onChangeText={(text) => setFormValues({ ...formValues, phone: text })}
+        />
+        <TextInput
+          label='Salary'
+          value={formValues.salary}
+          style={styles.inputStyle}
+          mode='outlined'
+          theme={theme}
+          onChangeText={(text) => setFormValues({ ...formValues, salary: text })}
+        />
+        <TextInput
+          label='Position'
+          value={formValues.position}
+          style={styles.inputStyle}
+          mode='outlined'
+          theme={theme}
+          onChangeText={(text) => setFormValues({ ...formValues, position: text })}
+        />
+        <Button
+          mode='contained'
+          style={styles.inputStyle}
+          theme={picture ? { colors: { primary: 'green' } } : theme}
+          icon={picture ? 'check' : 'upload'}
+          onPress={() => setModalVisible(true)}
+        >
+          {picture ? 'Image Uploaded' : 'Upload image'}
+        </Button>
+        <Button
+          mode='contained'
+          style={styles.inputStyle}
+          theme={theme}
+          icon='content-save'
+          onPress={() => {
+            submitForm();
+          }}
+        >
+          Save
+        </Button>
+        <Modal
+          animationType='slide'
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            setModalVisible(false);
+          }}
+        >
+          <View style={styles.modalView}>
+            <View style={styles.modalButtonView}>
+              <Button
+                mode='contained'
+                icon='camera'
+                theme={theme}
+                onPress={() => pickImageFromCamera()}
+              >
+                Camera
+              </Button>
+              <Button
+                mode='contained'
+                theme={theme}
+                icon='image'
+                onPress={() => pickImageFromGallery()}
+              >
+                Gallary
+              </Button>
+            </View>
+            <Button theme={theme} onPress={() => setModalVisible(false)}>
+              Cancel
             </Button>
           </View>
-          <Button theme={theme} onPress={() => setModalVisible(false)}>
-            Cancel
-          </Button>
-        </View>
-      </Modal>
+        </Modal>
+      </KeyboardAvoidingView>
     </View>
   );
 };
