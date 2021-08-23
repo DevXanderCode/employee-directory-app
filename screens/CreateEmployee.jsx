@@ -12,9 +12,12 @@ const CreateEmployee = () => {
     phoneNumber: '',
     email: '',
     salary: '',
+    position: '',
   });
   const [picture, setPicture] = React.useState('');
   const [modalVisible, setModalVisible] = React.useState(false);
+
+  const submitForm = () => {};
 
   const pickImageFromGallery = async () => {
     // const { granted } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
@@ -135,6 +138,14 @@ const CreateEmployee = () => {
         theme={theme}
         onChangeText={(text) => setFormValues({ ...formValues, salary: text })}
       />
+      <TextInput
+        label='Position'
+        value={formValues.position}
+        style={styles.inputStyle}
+        mode='outlined'
+        theme={theme}
+        onChangeText={(text) => setFormValues({ ...formValues, position: text })}
+      />
       <Button
         mode='contained'
         style={styles.inputStyle}
@@ -149,7 +160,9 @@ const CreateEmployee = () => {
         style={styles.inputStyle}
         theme={theme}
         icon='content-save'
-        onPress={() => console.log('Saving')}
+        onPress={() => {
+          submitForm();
+        }}
       >
         Save
       </Button>
