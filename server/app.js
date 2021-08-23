@@ -29,8 +29,27 @@ app.get('/', (req, res) => {
 });
 
 app.post('/send-data', (req, res) => {
-  console.log(req.body);
-  res.send('posted');
+  const { name, email, phone, picture, salary, position } = req.body;
+  // console.log(req.body);
+  const employee = new Employee({
+    name,
+    email,
+    phone,
+    picture,
+    salary,
+    position,
+  });
+  employee
+    .save()
+    .then((data) => {
+      console.log(data);
+      res.send('successful');
+      // res.sendStatus(201);
+    })
+    .catch((err) => {
+      res.send(err);
+      console.log(err);
+    });
 });
 
 app.listen(8080, () => {
