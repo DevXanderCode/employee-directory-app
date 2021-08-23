@@ -13,9 +13,9 @@ import CreateEmployee from './screens/CreateEmployee';
 import Profile from './screens/Profile';
 // reducer
 import { reducer, initialState } from './reducers/reducer';
+import { myContext } from './context';
 
 // const store = createStore(reducer);
-const myContext = React.createContext();
 
 const Stack = createStackNavigator();
 
